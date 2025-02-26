@@ -4,9 +4,13 @@ on:
   issues:
   pull_request:
 
+env:
+  ISSUES_LABEL_LIST: '["bug", "enhancement"]'
+  PR_LABEL_LIST: '["bug", "enhancement"]'
+
 jobs:
   test:
-    if: ${{ contains(fromJSON('vars.ISSUES_LABEL_LIST'), github.event.issue.labels.*.name) || contains(fromJSON('vars.PR_LABEL_LIST'), github.event.pull_request.labels.*.name) }}
+    if: ${{ contains(fromJSON(env.ISSUES_LABEL_LIST), github.event.issue.labels.*.name) || contains(fromJSON(env.PR_LABEL_LIST), github.event.pull_request.labels.*.name) }}
     runs-on: ubuntu-latest
     steps:
     - name: test
